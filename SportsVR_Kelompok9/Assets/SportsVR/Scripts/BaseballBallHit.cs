@@ -21,12 +21,13 @@ public class BaseballBallHit : MonoBehaviour
         if (counted) return;
 
         BaseballBatMarker batMarker = collision.collider.GetComponentInParent<BaseballBatMarker>();
-        bool taggedBat = collision.collider.CompareTag("Bat") || collision.collider.GetComponentInParent<Transform>().CompareTag("Bat");
+        BatSpeedTracker tracker = collision.collider.GetComponentInParent<BatSpeedTracker>();
+        string objectName = collision.collider.transform.root.name.ToLowerInvariant();
+        bool looksLikeBat = objectName.Contains("bat");
 
-        if (batMarker == null && !taggedBat) return;
+        if (batMarker == null && tracker == null && !looksLikeBat) return;
 
         float power = collision.relativeVelocity.magnitude;
-        BatSpeedTracker tracker = collision.collider.GetComponentInParent<BatSpeedTracker>();
         if (tracker != null)
             power = Mathf.Max(power, tracker.currentVelocity.magnitude);
 
