@@ -33,7 +33,7 @@ public class BasketballBallInfo : MonoBehaviour
         if (hasBeenThrown) return;
         if (rb == null) return;
 
-        if (rb.velocity.magnitude >= throwVelocityThreshold)
+        if (rb.linearVelocity.magnitude >= throwVelocityThreshold)
         {
             hasBeenThrown = true;
             points = GetPointsFromNearestShotSpot();
